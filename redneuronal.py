@@ -20,7 +20,7 @@ class RedNeuronal(object):
         for neurona1, neurona2 in zip(capas[:-1], capas[1:]):  # entre la capa de enfrente y la siguiente
             self.weights.append(np.random.randn(neurona2, neurona1))  # inicia los pesos, la ultima capa no tiene
 
-    def entrenar(self, data, epocas, tamano_subgrupo, lambd):
+    def entrenar(self, data, epocas, lote, lambd):
         pass
 
     def feedforward(self, x):

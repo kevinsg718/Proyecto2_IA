@@ -10,21 +10,28 @@ if __name__ == '__main__':
     #   gacion, micky
     # - Arquitectura:
     #   - Capas ocultas, a definir.
-    #   - Lambda: no definido
+    #   - Lambda: se utiliza para que el gradiente de descenso estocastico avance mas rapido o lento.
     #   - Funcion de activacion: sigmoide. Fue lo aprendido en clase, tiene una derivada sencilla
     # - Adquisición datos: Obtenidos grupalmente
-    # - Preprosesamiento: (ausente)
+    # - Preprosesamiento:
+    #   - Para las imagenes de Google:
+    #       Se cargaron desde los archivos .npy y luego se procesaron para poder utilizarlas como se desea.
+    #       Estas imagenes vienen en RGB y con el negro siendo 0,0,0 y blanco 255,255,255. Para modificarlo
+    #       Se dividio dentro de 255 y se obtuvo una muestra pequena para no agotar la ram. En otras palabras.
+    #       Se obtuvo solo un slice del total de elementos que contenia el array de Google
     # - Cantidad de datos: (Pendiente)
     # - Problema de bias o variance? No se aun
 
     # CREAR LA RED NEURONAL
-    parametros = [28*28, 16, 14, 10]
+    parametros = [28*28, 30, 10]  # se ingresa un array con el numero de neuronas por capa
     red = redneuronal.RedNeuronal(parametros)
 
     # CARGAR LAS IMAGENES
-    data = lector.cargar_imagenes()
+    data = lector.cargar_imagenes()  # Data tiene 3 arrays de tuplas train, cross, test
 
     # ENTRENAR LA RED NEURONAL
+    # se ingresa data, epocas (cuantas veces se va a 'aprender la data de train'), lote (tamano de subgrupo de
+    # entrenamiento para el descenso de gradiente), lambda (velocidad de aprendizaje para el resultado S(z))
     red.entrenar(data, 25, 20, 2.0)
 
     # CREAR LOOP PARA ESPERAR IMAGENES DESDE PAINT
