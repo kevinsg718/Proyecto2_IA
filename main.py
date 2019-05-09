@@ -9,7 +9,7 @@ if __name__ == '__main__':
     #   de instrucciones. Circulo, cuadrado, triangulo, huevo, arbol, casa, cara feliz, cara triste, signo de interro-
     #   gacion, micky
     # - Arquitectura:
-    #   - Capas ocultas, a definir.
+    #   - Capas ocultas, a definir.70,20,10
     #   - Lambda: se utiliza para que el gradiente de descenso estocastico avance mas rapido o lento.
     #   - Funcion de activacion: sigmoide. Fue lo aprendido en clase, tiene una derivada sencilla
     # - Adquisición datos: Obtenidos grupalmente
@@ -19,11 +19,15 @@ if __name__ == '__main__':
     #       Estas imagenes vienen en RGB y con el negro siendo 0,0,0 y blanco 255,255,255. Para modificarlo
     #       Se dividio dentro de 255 y se obtuvo una muestra pequena para no agotar la ram. En otras palabras.
     #       Se obtuvo solo un slice del total de elementos que contenia el array de Google
-    # - Cantidad de datos: (Pendiente)
-    # - Problema de bias o variance? No se aun
+    # - Cantidad de datos: 80% de los datos totales
+    # - Problema de bias o variance? underfittin y overfitting, entre mas epocas mas se acomoda y deja de aprender y memoriza por lo que no logra predecir imagenes
 
     # CREAR LA RED NEURONAL
-    parametros = [28*28, 30, 10]  # se ingresa un array con el numero de neuronas por capa
+    # 784 neuronas de entrada
+    # 70 oculta
+    # 20 oculta
+    # 10 salida
+    parametros = [28*28, 70, 20, 10]  # se ingresa un array con el numero de neuronas por capa al tanteo no esta optimizado
     red = redneuronal.RedNeuronal(parametros)
 
     # CARGAR LAS IMAGENES
@@ -32,44 +36,65 @@ if __name__ == '__main__':
     # ENTRENAR LA RED NEURONAL
     # se ingresa data, epocas (cuantas veces se va a 'aprender la data de train'), lote (tamano de subgrupo de
     # entrenamiento para el descenso de gradiente), lambda (velocidad de aprendizaje para el resultado S(z))
-    red.entrenar(data, 25, 20, 2.0)
+    #data
+    #10 capas
+    #20 lotes por que se entrena por pedasos
+    #2.0 learinig rate o lambda, es la velocidad de aprendizaje (lo saque probando cuanto tuvo de error)
+
+    red.entrenar(data, 10, 20, 2.0)
+    #RED nueronal entrenada--------------------------------------------------------
 
     # CREAR LOOP PARA ESPERAR IMAGENES DESDE PAINT
-    while True:
-        # esperar paint
-        nueva = lector.cargar_paint()
-        imagen, probabilidad = red.reconocer_imagen(nueva)
+    seleccion = 0
+    while seleccion != 2:
+        print("Escoger alguna de las siguientes opciones.")
+        print("\t1) Analizar nueva imagen")
+        print("\t2) Salir")
+        seleccion = int(input())
 
-        # Clasificar resultado
-        resultado = ""
-        if imagen == 0:
-            resultado = "circulo"
+        if seleccion == 1:
+            # esperar paint
+            nombre_imagen = input("Ingresar nombre de la imagen (sin extencion): ")
+            nueva = lector.cargar_paint(nombre_imagen)#convierto la imagen
+            imagen, probabilidad = red.reconocer_imagen(nueva)#envio a red nueronal para que retorne imagen y probabilidad
 
-        elif imagen == 1:
-            resultado = "cuadrado"
+            # Clasificar resultado
+            resultado = ""
+            if imagen == 0:
+                resultado = "circulo"
 
-        elif imagen == 2:
-            resultado = "triangulo"
+            elif imagen == 1:
+                resultado = "cuadrado"
 
-        elif imagen == 3:
-            resultado = "huevo"
+            elif imagen == 2:
+                resultado = "triangulo"
 
-        elif imagen == 4:
-            resultado = "arbol"
+            elif imagen == 3:
+                resultado = "huevo"
 
-        elif imagen == 5:
-            resultado = "casa"
+            elif imagen == 4:
+                resultado = "arbol"
 
-        elif imagen == 6:
-            resultado = "cara feliz"
+            elif imagen == 5:
+                resultado = "casa"
 
-        elif imagen == 7:
-            resultado = "cara triste"
+            elif imagen == 6:
+                resultado = "cara feliz"
 
-        elif imagen == 8:
-            resultado = "interrogacion"
+            elif imagen == 7:
+                resultado = "cara triste"
 
-        elif imagen == 9:
-            resultado = "micky mouse"
+            elif imagen == 8:
+                resultado = "interrogacion"
 
-        print("La imagen es: %s, con probabilidad de: %s" % (resultado, probabilidad))
+            elif imagen == 9:
+                resultado = "micky mouse"
+
+            print("La imagen es: %s, con probabilidad de: %s" % (resultado, probabilidad))
+
+        elif seleccion == 2:
+            print("Saliendo...")
+            break
+
+        else:
+            print("No es una opcion.")
