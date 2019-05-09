@@ -70,7 +70,7 @@ def cargar_imagenes():
     for entrada in range(6000):
         casa_r.append(array_comparacion)
 
-    conjunto_cargado = np.load('Imagenes/cara.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
+    conjunto_cargado = np.load('Imagenes/cara_feliz.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
     feliz = []
     for x in conjunto_cargado:
         feliz.append(np.reshape(x, (784, 1)))
@@ -80,25 +80,25 @@ def cargar_imagenes():
     for entrada in range(6000):
         feliz_r.append(array_comparacion)
 
-    #  conjunto_cargado = np.load('Imagenes/triste.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
-    #  triste = []
-    #  for x in conjunto_cargado:
-    #      triste.append(np.reshape(x, (784, 1)))
-    #  array_comparacion = np.zeros((10, 1))  # se crea un array con ceros, y con el tipo de imagen en un indice
-    #  array_comparacion[7] = 1.0
-    #  triste_r = []
-    #  for entrada in range(6000):
-    #      triste_r.append(array_comparacion)
+    conjunto_cargado = np.load('Imagenes/cara_triste.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
+    triste = []
+    for x in conjunto_cargado:
+        triste.append(np.reshape(x, (784, 1)))
+    array_comparacion = np.zeros((10, 1))  # se crea un array con ceros, y con el tipo de imagen en un indice
+    array_comparacion[7] = 1.0
+    triste_r = []
+    for entrada in range(6000):
+      triste_r.append(array_comparacion)
 
-    #  conjunto_cargado = np.load('Imagenes/pregunta.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
-    #  pregunta = []
-    #  for x in conjunto_cargado:
-    #      pregunta.append(np.reshape(x, (784, 1)))
-    #  array_comparacion = np.zeros((10, 1))  # se crea un array con ceros, y con el tipo de imagen en un indice
-    #  array_comparacion[8] = 1.0
-    #  pregunta_r = []
-    #  for entrada in range(6000):
-    #      pregunta_r.append(array_comparacion)
+    conjunto_cargado = np.load('Imagenes/pregunta.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
+    pregunta = []
+    for x in conjunto_cargado:
+     pregunta.append(np.reshape(x, (784, 1)))
+    array_comparacion = np.zeros((10, 1))  # se crea un array con ceros, y con el tipo de imagen en un indice
+    array_comparacion[8] = 1.0
+    pregunta_r = []
+    for entrada in range(6000):
+       pregunta_r.append(array_comparacion)
 
     data_mickey = np.load('Imagenes/mouse.npy')[:6000] / 255.0  # se cargan 6000 para luego dividir en grupo
     sombra_mickey = []
@@ -111,8 +111,8 @@ def cargar_imagenes():
         sombra_mickey_r.append(array_comparacion)
 
     # ahora se unen los dos arrays creados por cada tipo de imagen
-    imagenes = np.concatenate((circulo, cuadrado, triangulo, arbol, casa, feliz, sombra_mickey))
-    respuestas = np.concatenate((circulo_r, cuadrado_r, triangle_result, arbol_r, casa_r, feliz_r, sombra_mickey_r))
+    imagenes = np.concatenate((circulo, cuadrado, triangulo, arbol, casa, feliz, sombra_mickey, pregunta, triste, huevo))
+    respuestas = np.concatenate((circulo_r, cuadrado_r, triangle_result, arbol_r, casa_r, feliz_r, sombra_mickey_r, pregunta_r, triste_r, huevo_r))
     imagenes_final = zip(imagenes, respuestas)  # Esto une las respuestas con las imagenes
     imagenes_final = list(imagenes_final)  # Esto crea una lista del objeto anterior
 
