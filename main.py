@@ -37,7 +37,7 @@ if __name__ == '__main__':
     # se ingresa data, epocas (cuantas veces se va a 'aprender la data de train'), lote (tamano de subgrupo de
     # entrenamiento para el descenso de gradiente), lambda (velocidad de aprendizaje para el resultado S(z))
     #data
-    #10 capas
+    #10 opocas
     #20 lotes por que se entrena por pedasos
     #2.0 learinig rate o lambda, es la velocidad de aprendizaje (lo saque probando cuanto tuvo de error)
 
@@ -50,9 +50,9 @@ if __name__ == '__main__':
         print("Escoger alguna de las siguientes opciones.")
         print("\t1) Analizar nueva imagen")
         print("\t2) Salir")
-        seleccion = int(input())
+        seleccion = input()
 
-        if seleccion == 1:
+        if seleccion == "1":
             # esperar paint
             nombre_imagen = input("Ingresar nombre de la imagen (sin extencion): ")
             nueva = lector.cargar_paint(nombre_imagen)#convierto la imagen
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
             print("La imagen es: %s, con probabilidad de: %s" % (resultado, probabilidad))
 
-        elif seleccion == 2:
+        elif seleccion == "2":
             print("Saliendo...")
             break
 
