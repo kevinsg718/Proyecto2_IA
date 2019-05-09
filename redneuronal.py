@@ -48,6 +48,20 @@ class RedNeuronal(object):
             for i in lotes:
                 self.gradient_descend(i, lambd)#pedaso y velocida que avanza
 
+            # cross validatoin
+            cross_results = []
+            resultado_cross = [np.argmax(y[1]) for y in cross]
+            for (x, y) in cross:
+                cross_results.append(np.argmax(self.feedforward(x)))
+
+            aciertos_cross = 0
+            for (resultado, valor_esperado) in zip(cross_results, resultado_cross):
+                if resultado == valor_esperado:
+                    aciertos_cross += 1
+
+            porcentaje = float(aciertos_cross) / len(cross) * 100
+            print("Se obtuvo %s%% porcentaje de cross-validation en la epoca %s" % (porcentaje, epoca))
+
             # ahora se quiere calcular como le fue en la presente epoca
             # para esto se utiliza el subconjunto de test
             #le aplico a test_result feed foward con los nuevos bias y pesos en esta epoca
